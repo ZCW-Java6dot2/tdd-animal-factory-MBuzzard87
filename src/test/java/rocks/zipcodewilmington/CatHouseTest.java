@@ -5,81 +5,82 @@ import org.junit.Test;
 import rocks.zipcodewilmington.animals.Cat;
 import rocks.zipcodewilmington.animals.animal_storage.CatHouse;
 
+import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 /**
  * @author leon on 4/19/18.
  */
 public class CatHouseTest {
     // TODO - Create tests for `void add(Cat cat)`
+
     @Test
-    public void addTest() {
-        // given
-        Cat expected = new Cat();
-        Integer id = expected.getId();
+    public void addCat() {
+        String name = "Kee-Kee";
+        Date birthDate = new Date();
+        Integer catId = 0;
 
-        // when
-        CatHouse.add(expected);
-        Cat actual = CatHouse.getCatById(id);
+        Cat kitty = new Cat(name,birthDate,catId);
+        CatHouse.add(kitty);
 
-        // then
-        Assert.assertEquals(expected, actual);
+        Cat actualKitty = CatHouse.getCatById(catId);
+
+        assertEquals(kitty, actualKitty);
     }
 
-    // TODO - Create tests for `void remove(Integer id)`
     @Test
-    public void removeTest() {
-        // given
-        Cat catToBeAdded = new Cat(null, null, 0);
-        CatHouse.add(catToBeAdded);
-        Integer id = catToBeAdded.getId();
+    public void removeCat() {
+        Cat kitty = new Cat("Ki-ki",new Date(), 0);
+        CatHouse.add(kitty);
+        CatHouse.remove(0);
 
-        // when
-        CatHouse.remove(id);
-        Cat retrievedCat = CatHouse.getCatById(id);
+        Cat kittyCat = CatHouse.getCatById(0);
 
-        // then
-        Assert.assertNull(retrievedCat);
+        assertNull(kittyCat);
+    }
+
+    @Test
+    public void removeByCat() {
+        Cat kitty = new Cat("Ki-ki",new Date(), 0);
+        CatHouse.add(kitty);
+        CatHouse.remove(kitty);
+
+        Cat kittyCat = CatHouse.getCatById(0);
+
+        assertNull(kittyCat);
+    }
+
+    @Test
+    public void getCatById() {
+        String name = "Kee-Kee";
+        Date birthDate = new Date();
+        Integer catId = 0;
+
+        Cat kitty = new Cat(name,birthDate,catId);
+        CatHouse.add(kitty);
+
+        Cat actualKitty = CatHouse.getCatById(catId);
+
+        assertEquals(kitty, actualKitty);
+    }
+
+    @Test
+    public void getNumberOfCats() {
+        String name = "Kee-Kee";
+        Date birthDate = new Date();
+        Integer catId = 0;
+        Integer expectedNumOfCats = 1;
+
+        Cat kitty = new Cat(name,birthDate,catId);
+        CatHouse.add(kitty);
+
+        Integer kittyNum = CatHouse.getNumberOfCats();
+
+        assertEquals(expectedNumOfCats,kittyNum);
     }
 
 
-    // TODO - Create tests for `void remove(Cat cat)`
-    @Test
-    public void removeByCatTest() {
-        // given
-        Cat catToBeAdded = new Cat(null, null, 0);
-        CatHouse.add(catToBeAdded);
-        Integer id = catToBeAdded.getId();
 
-        // when
-        CatHouse.remove(catToBeAdded);
-        Cat retrievedCat = CatHouse.getCatById(id);
-
-        // then
-        Assert.assertNull(retrievedCat);
-    }
-
-    // TODO - Create tests for `Integer getNumberOfCats()`
-    @Test
-    public void getNumberOfCatsTest() {
-        // given there is a cat to be added
-        Cat cat = new Cat();
-
-        // given that I count number of cats before add
-        int numberOfCatsBeforeAdd = CatHouse.getNumberOfCats();
-
-        // given that I add one cat, my expected should be numberOfCatsBeforeAdd + 1
-        int expected = numberOfCatsBeforeAdd + 1;
-
-        // given that I have added a cat
-        CatHouse.add(cat);
-
-        // when I get the number of cats after the add
-        int actual = CatHouse.getNumberOfCats();
-
-        // then
-        Assert.assertEquals(expected, actual);
-
-
-
-
-    }
 }
