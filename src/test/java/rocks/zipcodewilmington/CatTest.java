@@ -106,6 +106,16 @@ public class CatTest {
     }
 
 
+    @Test
+    public void idTest() {
+
+        Integer idNum = 0;
+        Cat cat = new Cat("", new Date(), idNum);
+
+        Integer actualId = cat.getId();
+
+        Assert.assertEquals(idNum,actualId);
+    }
 
     @Test
     public void constructorTest() {
